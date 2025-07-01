@@ -8,7 +8,7 @@ function d(n) {
 
 let hasGenerator = new Array(5001).fill(false)
 // console.log(hasGenerator, '==')
-for (let i = 0; i <= 5000; i++) {
+for (let i = 1; i <= 5000; i++) {
   let generated = d(i)
   // console.log(generated, "===")
   // console.log(hasGenerator[i], '==', i)
@@ -17,10 +17,10 @@ for (let i = 0; i <= 5000; i++) {
   }
 }
 
-console.log(hasGenerator)
+// console.log(hasGenerator)
 
 let sumSelfNumbers = 0
-for (let i = 0; i < 5000; i++) {
+for (let i = 1; i <= 5000; i++) {
   if (!hasGenerator[i]) {
     // console.log(i, "===")
     sumSelfNumbers += i
