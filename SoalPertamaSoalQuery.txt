@@ -1,0 +1,56 @@
+CREATE TABLE murid (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    time_create TIMESTAMP
+);
+
+CREATE TABLE pendidikan (
+    id INT PRIMARY KEY,
+    id_murid INT,
+    status VARCHAR(50),
+    time_create TIMESTAMP,
+    FOREIGN KEY (id_murid) REFERENCES murid(id)
+);
+
+
+INSERT INTO murid (id, name, time_create) VALUES
+(1, 'Rizal', '2021-06-15 12:26:52'),
+(2, 'Wahyudi', '2021-06-15 12:27:01'),
+(3, 'Dimas', '2021-06-15 12:27:38'),
+(4, 'Rio', '2021-06-15 12:27:45');
+
+INSERT INTO pendidikan (id, id_murid, status, time_create) VALUES
+(1, 1, 'TK', '2021-06-15 12:30:41'),
+(2, 1, 'SD', '2021-06-15 12:30:48'),
+(3, 1, 'SMP', '2021-06-15 12:30:55'),
+(4, 1, 'SMK', '2021-06-15 12:31:05'),
+(5, 1, 'Kuliah', '2021-06-15 12:31:15'),
+(6, 2, 'SD', '2021-06-15 12:31:25'),
+(7, 2, 'SMP', '2021-06-15 12:31:33'),
+(8, 2, 'Putus Sekolah', '2021-06-15 12:31:44'),
+(9, 3, 'TK', '2021-06-15 12:32:37'),
+(10, 3, 'SD', '2021-06-15 12:32:45'),
+(11, 3, 'SMK', '2021-06-15 12:32:52'),
+(12, 4, 'TK', '2021-06-15 12:33:31'),
+(13, 4, 'SMP', '2021-06-15 12:33:43'),
+(14, 4, 'SMK', '2021-06-15 12:33:55'),
+(15, 4, 'S1', '2021-06-15 12:34:13');
+
+
+
+SELECT
+	m.id AS id_murid,
+	m.name,
+	p.status AS pendidikan_terakhir,
+	m.time_create,
+	p.time_create AS time_update
+FROM
+	murid m
+JOIN
+	pendidikan p on m.id = p.id_murid
+WHERE
+	p.time_create = (
+		SELECT MAX(time_create)
+		FROM pendidikan
+		WHERE id_murid = m.id
+	);
